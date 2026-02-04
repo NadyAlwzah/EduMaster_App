@@ -4,28 +4,40 @@ import 'package:edumaster/core/theme/theme_app_cubit/theme_app_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-void main() {
-  runApp(const EduMaster());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  final themeCubit = ThemeAppCubit();
+  await themeCubit.getTheme();
+
+  runApp(
+    BlocProvider(
+      create: (_) => themeCubit,
+      child: EduMaster(themeCubit: themeCubit),
+    ),
+  );
 }
 
 class EduMaster extends StatelessWidget {
-  const EduMaster({super.key});
+  const EduMaster({super.key, required this.themeCubit});
+
+  final ThemeAppCubit themeCubit;
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create: (context) => ThemeAppCubit(),
-        ),
+        // BlocProvider<ThemeAppCubit>(
+        // create: (context) => themeCubit,
+        // ),
+        BlocProvider<ThemeAppCubit>.value(value: themeCubit),
       ],
       child:
           BlocBuilder<ThemeAppCubit, ThemeAppState>(builder: (context, state) {
+        final isDark = context.read<ThemeAppCubit>().themeType;
         return MaterialApp.router(
           routerConfig: AppRouter.router,
-          theme: state is ThemeAppInitial
-              ? AppTheme.lightTheme
-              : AppTheme.darkTheme,
+          theme: isDark ? AppTheme.lightTheme : AppTheme.darkTheme,
           // home: SplashView(),
           debugShowCheckedModeBanner: false,
         );
