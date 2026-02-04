@@ -1,3 +1,4 @@
+import 'package:edumaster/features/splash/presentation/views/splash_view.dart';
 import 'package:edumaster/main.dart';
 import 'package:go_router/go_router.dart';
 
