@@ -27,9 +27,6 @@ class EduMaster extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        // BlocProvider<ThemeAppCubit>(
-        // create: (context) => themeCubit,
-        // ),
         BlocProvider<ThemeAppCubit>.value(value: themeCubit),
       ],
       child:
@@ -38,7 +35,6 @@ class EduMaster extends StatelessWidget {
         return MaterialApp.router(
           routerConfig: AppRouter.router,
           theme: isDark ? AppTheme.lightTheme : AppTheme.darkTheme,
-          // home: SplashView(),
           debugShowCheckedModeBanner: false,
         );
       }),
@@ -56,10 +52,11 @@ class HomeView extends StatelessWidget {
         title: Text("Hello Nady"),
         actions: [
           IconButton(
-              onPressed: () {
-                context.read<ThemeAppCubit>().changeTheme();
-              },
-              icon: Icon(Icons.safety_check))
+            onPressed: () {
+              context.read<ThemeAppCubit>().changeTheme();
+            },
+            icon: const Icon(Icons.safety_check),
+          ),
         ],
       ),
     );
