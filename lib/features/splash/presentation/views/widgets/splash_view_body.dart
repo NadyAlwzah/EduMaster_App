@@ -1,8 +1,10 @@
+import 'package:edumaster/app/routes.dart';
 import 'package:edumaster/core/utils/assets.dart';
 import 'package:edumaster/features/splash/presentation/views/widgets/edu_master_logo_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:go_router/go_router.dart';
 
 class SplashViewBody extends StatefulWidget {
   const SplashViewBody({super.key});
@@ -21,18 +23,9 @@ class _SplashViewBodyState extends State<SplashViewBody>
     // TODO: implement initState
     super.initState();
 
-    animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(
-        seconds: 1,
-      ),
-    );
+    initSlidingAnimation();
 
-    slidingAnimation =
-        Tween<Offset>(begin: const Offset(0, 1), end: Offset.zero)
-            .animate(animationController);
-
-    animationController.forward();
+    navigatorToHome();
   }
 
   @override
@@ -63,6 +56,30 @@ class _SplashViewBodyState extends State<SplashViewBody>
           },
         ),
       ],
+    );
+  }
+
+  void initSlidingAnimation() {
+    animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(
+        seconds: 1,
+      ),
+    );
+
+    slidingAnimation =
+        Tween<Offset>(begin: const Offset(0, 1), end: Offset.zero)
+            .animate(animationController);
+
+    animationController.forward();
+  }
+
+  void navigatorToHome() {
+    Future.delayed(
+      const Duration(seconds: 2),
+      () {
+        GoRouter.of(context).push(AppRouter.KHomeView);
+      },
     );
   }
 }
