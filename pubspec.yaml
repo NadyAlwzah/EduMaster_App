@@ -38,7 +38,7 @@ dependencies:
   go_router: ^14.6.2
   shared_preferences: ^2.2.3
   google_fonts: ^6.3.0
-
+  flutter_native_splash: ^2.4.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -89,3 +89,14 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+flutter_native_splash:
+  color: "#000000" # اللون الاسود (لغير أندرويد 12)
+  image: assets/images/logoSmall.png # مسار اللوغو
+  android: true
+  ios: true
+  web: false
+  fullscreen: true
+
+  android_12:
+    color: "#000000" # اللون الاسود لأندرويد 12
+    image: assets/images/logoSmall.png
